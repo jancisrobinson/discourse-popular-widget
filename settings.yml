@@ -1,0 +1,40 @@
+topic_count:
+  type: integer
+  default: 5
+  min: 3
+  max: 10
+  description: "Number of popular topics to display (3–10)."
+
+period:
+  type: enum
+  default: "quarterly"
+  choices:
+    - daily
+    - weekly
+    - monthly
+    - quarterly
+    - yearly
+    - all
+  description: "Time period for popular topics ranking (logged-in users)."
+
+period_anonymous:
+  type: enum
+  default: "yearly"
+  choices:
+    - daily
+    - weekly
+    - monthly
+    - quarterly
+    - yearly
+    - all
+  description: "Time period for popular topics ranking (anonymous visitors)."
+
+widget_title:
+  type: string
+  default: "Popular"
+  description: "Heading text displayed above the popular topics list."
+
+show_on_home:
+  type: bool
+  default: true
+  description: "Show the popular topics widget on the homepage."

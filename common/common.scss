@@ -1,0 +1,25 @@
+.popular-topics-container {
+  margin-top: var(--space-8);
+  display: flex;
+  width: 100%;
+
+  .latest-topic-list {
+    padding: 0;
+    width: 100%;
+    
+    .latest-topic-list-item {
+      .discourse-tags {
+        font-weight: normal;
+        font-size: var(--font-down-1);
+
+        .discourse-tag {
+          font-size: var(--font-down-1);
+          border-radius: .25em;
+          padding: .15em .25em .15em .35em;
+          background-color: var(--primary-low);
+          color: var(--primary) !important;
+        }
+      }
+    }
+  }
+}
