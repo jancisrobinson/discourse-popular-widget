@@ -57,8 +57,8 @@ export default apiInitializer("1.0.0", (api) => {
         {{#unless this.loading}}
           {{#if this.topics.length}}
             <div class="popular-topics-container" {{this.positionAfterCategoryBoxes}}>
-              <div role="heading" aria-level="2" class="table-heading">{{settings.widget_title}}</div>
               <div class="latest-topic-list">
+                <div role="heading" aria-level="2" class="table-heading">{{settings.widget_title}}</div>
                 {{#each this.topics as |topic|}}
                   <LatestTopicListItem @topic={{topic}} />
                 {{/each}}
