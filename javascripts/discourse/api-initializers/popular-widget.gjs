@@ -1,12 +1,14 @@
 import Component from "@glimmer/component";
 import { tracked } from "@glimmer/tracking";
+import { service } from "@ember/service";
 import { ajax } from "discourse/lib/ajax";
 import { apiInitializer } from "discourse/lib/api";
-import Topic from "discourse/models/topic";
+import TopicList from "discourse/models/topic-list";
 import LatestTopicListItem from "discourse/components/topic-list/latest-topic-list-item";
 
 export default apiInitializer("1.0.0", (api) => {
   api.renderInOutlet("above-discovery-categories", class PopularTopicsWidget extends Component {
+    @service store;
     @tracked topics = [];
     @tracked loading = true;
 
@@ -24,24 +26,11 @@ export default apiInitializer("1.0.0", (api) => {
     async fetchTopics() {
       try {
         const result = await ajax(`/top.json?period=${settings.period}`);
-        const users = {};
-        (result.users || []).forEach((u) => (users[u.id] = u));
-
-        const rawTopics = (result.topic_list?.topics || []).slice(
-          0,
-          settings.topic_count
-        );
-
-        this.topics = rawTopics.map((t) =>
-          Topic.create({
-            ...t,
-            posters: (t.posters || []).map((p) => ({
-              ...p,
-              user: users[p.user_id],
-            })),
-          })
-        );
-      } catch {
+        const allTopics = TopicList.topicsFrom(this.store, result);
+        this.topics = allTopics.slice(0, settings.topic_count);
+      } catch (e) {
+        // eslint-disable-next-line no-console
+        console.error("Popular topics widget: failed to fetch topics", e);
         this.topics = [];
       } finally {
         this.loading = false;
