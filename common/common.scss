@@ -1,8 +1,11 @@
 .popular-topics-container {
-  margin-bottom: 1.5em;
+  margin-top: var(--space-8);
+  display: flex;
+  width: 100%;
 
   .latest-topic-list {
     padding: 0;
+    width: 100%;
     
     .latest-topic-list-item {
       .discourse-tags {
