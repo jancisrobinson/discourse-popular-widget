@@ -32,13 +32,15 @@ export default apiInitializer("1.0.0", (api) => {
           settings.topic_count
         );
 
-        this.topics = rawTopics.map((t) => {
-          t.posters = (t.posters || []).map((p) => ({
-            ...p,
-            user: users[p.user_id],
-          }));
-          return Topic.create(t);
-        });
+        this.topics = rawTopics.map((t) =>
+          Topic.create({
+            ...t,
+            posters: (t.posters || []).map((p) => ({
+              ...p,
+              user: users[p.user_id],
+            })),
+          })
+        );
       } catch {
         this.topics = [];
       } finally {
